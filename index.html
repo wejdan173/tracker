@@ -3,32 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>External Request Tracker</title>
+  <title>Jawwy Request Tracker</title>
   <style>
     :root {
-      --primary-bg: #0f172a;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --success: #22c55e;
-      --warning: #eab308;
-      --input-bg: #0f172a;
+      --primary-bg: #0d1117;
+      --card-bg: #161b22;
+      --accent: #ff5a00; /* Jawwy Orange */
+      --accent-hover: #e04f00;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --border: #30363d;
+      --input-bg: #0d1117;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--primary-bg); color: var(--text); padding: 25px; line-height: 1.5; }
-    .container { max-width: 1100px; margin: 0 auto; }
+    .container { max-width: 900px; margin: 0 auto; }
 
     /* Header & Stats */
     header { text-align: center; margin-bottom: 30px; }
-    header h1 { font-size: 2.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+    header h1 { font-size: 2.2rem; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; text-transform: uppercase; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
     .stat-card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border); text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
-    .stat-card div { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+    .stat-card div { font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
     .stat-card span { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* Tabs */
@@ -42,15 +40,14 @@
 
     /* Form & Cards */
     .card { background: var(--card-bg); padding: 25px; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 20px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 20px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-    .form-group input, .form-group select, .form-group textarea { padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
-    .form-group textarea { grid-column: 1 / -1; resize: vertical; height: 80px; }
+    .form-group input { padding: 12px 14px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--accent); }
 
-    button.btn-primary { background: var(--accent); color: #0f172a; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
-    button.btn-primary:hover { background: var(--accent-hover); color: #ffffff; }
+    button.btn-primary { background: var(--accent); color: #ffffff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; width: 100%; }
+    button.btn-primary:hover { background: var(--accent-hover); }
 
     /* Search */
     .search-box { margin-bottom: 20px; }
@@ -59,16 +56,12 @@
 
     /* Table */
     .table-container { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
     th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
-    th { background: rgba(15, 23, 42, 0.6); color: var(--text-muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
-    .badge-open { background: rgba(234, 179, 8, 0.15); color: var(--warning); border: 1px solid rgba(234, 179, 8, 0.3); }
-    .badge-closed { background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
+    th { background: rgba(13, 17, 23, 0.8); color: var(--text-muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .copy-btn { background: var(--input-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; transition: all 0.2s; }
-    .copy-btn:hover { background: var(--border); color: var(--text); }
+    .copy-btn { background: var(--input-bg); border: 1px solid var(--border); color: var(--accent); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; }
+    .copy-btn:hover { background: var(--accent); color: #ffffff; }
 
     .loading { text-align: center; padding: 30px; color: var(--text-muted); }
   </style>
@@ -77,14 +70,13 @@
 
 <div class="container">
   <header>
-    <h1>External Request Tracker</h1>
+    <h1>Jawwy Request Tracker</h1>
   </header>
 
   <!-- Stats -->
   <div class="stats-grid">
     <div class="stat-card"><div id="stat-total">0</div><span>Total Cases</span></div>
-    <div class="stat-card"><div id="stat-open" style="color: var(--warning);">0</div><span>Open Cases</span></div>
-    <div class="stat-card"><div id="stat-closed" style="color: var(--success);">0</div><span>Closed Cases</span></div>
+    <div class="stat-card"><div id="stat-open">0</div><span>Open Cases</span></div>
   </div>
 
   <!-- Tabs -->
@@ -107,40 +99,9 @@
             <label>Customer Number</label>
             <input type="text" id="customerNumber" required placeholder="e.g. 05XXXXXXXX">
           </div>
-          <div class="form-group">
-            <label>Case / Request Number</label>
-            <input type="text" id="caseNumber" required placeholder="e.g. INC123456">
-          </div>
-          <div class="form-group">
-            <label>Case Title / Subject</label>
-            <input type="text" id="subject" required placeholder="e.g. Refund Request">
-          </div>
-          <div class="form-group">
-            <label>Created By</label>
-            <input type="text" id="createdBy" required placeholder="Your Name">
-          </div>
-          <div class="form-group">
-            <label>Shift</label>
-            <select id="shift">
-              <option value="Morning">Morning</option>
-              <option value="Evening">Evening</option>
-              <option value="Night">Night</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Date</label>
-            <input type="date" id="date">
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select id="status">
-              <option value="Open">Open</option>
-              <option value="Closed">Closed</option>
-            </select>
-          </div>
           <div class="form-group" style="grid-column: 1 / -1;">
-            <label>Notes (Optional)</label>
-            <textarea id="notes" placeholder="Additional details..."></textarea>
+            <label>Case / Request Number</label>
+            <input type="text" id="caseNumber" required placeholder="e.g. 1-123456789">
           </div>
         </div>
         <button type="submit" class="btn-primary" id="subBtn">Add Case</button>
@@ -151,24 +112,20 @@
   <!-- Tab: Search Case -->
   <div id="tab-search" class="tab-content">
     <div class="search-box">
-      <input type="text" id="searchInput" oninput="filterCases()" placeholder="Search by customer name, phone number, or case ID...">
+      <input type="text" id="searchInput" oninput="filterCases()" placeholder="Search by customer name, mobile number, or case ID...">
     </div>
     <div class="card table-container">
-      <table id="searchTable">
+      <table>
         <thead>
           <tr>
-            <th>Customer</th>
-            <th>Customer No.</th>
-            <th>Case No.</th>
-            <th>Subject</th>
-            <th>Created By</th>
-            <th>Date</th>
-            <th>Status</th>
+            <th>Customer Name</th>
+            <th>Customer Number</th>
+            <th>Case Number</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody id="searchResults">
-          <tr><td colspan="8" class="loading">Type in search box to display results...</td></tr>
+          <tr><td colspan="4" class="loading">Type in search box to display results...</td></tr>
         </tbody>
       </table>
     </div>
@@ -180,19 +137,14 @@
       <table>
         <thead>
           <tr>
-            <th>Customer</th>
-            <th>Customer No.</th>
-            <th>Case No.</th>
-            <th>Subject</th>
-            <th>Created By</th>
-            <th>Shift</th>
-            <th>Date</th>
-            <th>Status</th>
+            <th>Customer Name</th>
+            <th>Customer Number</th>
+            <th>Case Number</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody id="allResults">
-          <tr><td colspan="9" class="loading">Loading data from Google Sheets...</td></tr>
+          <tr><td colspan="4" class="loading">Loading data...</td></tr>
         </tbody>
       </table>
     </div>
@@ -205,7 +157,6 @@
 
   let allData = [];
 
-  document.getElementById('date').valueAsDate = new Date();
   window.onload = loadData;
 
   function switchTab(tabName, evt) {
@@ -229,15 +180,13 @@
 
   function updateStats() {
     document.getElementById('stat-total').innerText = allData.length;
-    const openCount = allData.filter(d => d.Status === 'Open').length;
-    document.getElementById('stat-open').innerText = openCount;
-    document.getElementById('stat-closed').innerText = allData.length - openCount;
+    document.getElementById('stat-open').innerText = allData.length;
   }
 
   function renderAllTable() {
     const tbody = document.getElementById('allResults');
     if(allData.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">No records found</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No records found</td></tr>';
       return;
     }
     tbody.innerHTML = allData.map(row => `
@@ -245,12 +194,7 @@
         <td><b>${row['Customer Name'] || ''}</b></td>
         <td>${row['Customer Number'] || ''}</td>
         <td><code>${row['Case Number'] || ''}</code></td>
-        <td>${row['Subject'] || ''}</td>
-        <td>${row['Created By'] || ''}</td>
-        <td>${row['Shift'] || ''}</td>
-        <td>${row['Date'] ? row['Date'].toString().split('T')[0] : ''}</td>
-        <td><span class="badge ${row['Status'] === 'Open' ? 'badge-open' : 'badge-closed'}">${row['Status']}</span></td>
-        <td><button class="copy-btn" onclick="copyText('${row['Case Number']}')">Copy</button></td>
+        <td><button class="copy-btn" onclick="copyText('${row['Case Number']}')">Copy Case</button></td>
       </tr>
     `).join('');
   }
@@ -260,7 +204,7 @@
     const tbody = document.getElementById('searchResults');
     
     if(!q) {
-      tbody.innerHTML = '<tr><td colspan="8" class="loading">Type in search box to display results...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" class="loading">Type in search box to display results...</td></tr>';
       return;
     }
 
@@ -271,7 +215,7 @@
     );
 
     if(filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No matching cases found</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No matching cases found</td></tr>';
       return;
     }
 
@@ -280,11 +224,7 @@
         <td><b>${row['Customer Name'] || ''}</b></td>
         <td>${row['Customer Number'] || ''}</td>
         <td><code>${row['Case Number'] || ''}</code></td>
-        <td>${row['Subject'] || ''}</td>
-        <td>${row['Created By'] || ''}</td>
-        <td>${row['Date'] ? row['Date'].toString().split('T')[0] : ''}</td>
-        <td><span class="badge ${row['Status'] === 'Open' ? 'badge-open' : 'badge-closed'}">${row['Status']}</span></td>
-        <td><button class="copy-btn" onclick="copyText('${row['Case Number']}')">Copy</button></td>
+        <td><button class="copy-btn" onclick="copyText('${row['Case Number']}')">Copy Case</button></td>
       </tr>
     `).join('');
   }
@@ -298,13 +238,7 @@
     const payload = {
       customerName: document.getElementById('customerName').value,
       customerNumber: document.getElementById('customerNumber').value,
-      caseNumber: document.getElementById('caseNumber').value,
-      subject: document.getElementById('subject').value,
-      createdBy: document.getElementById('createdBy').value,
-      shift: document.getElementById('shift').value,
-      date: document.getElementById('date').value,
-      status: document.getElementById('status').value,
-      notes: document.getElementById('notes').value
+      caseNumber: document.getElementById('caseNumber').value
     };
 
     try {
@@ -317,7 +251,6 @@
 
       alert("✅ Case saved successfully!");
       document.getElementById('caseForm').reset();
-      document.getElementById('date').valueAsDate = new Date();
       setTimeout(loadData, 1000);
     } catch (err) {
       alert("Error saving case!");
